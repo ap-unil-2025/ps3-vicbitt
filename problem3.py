@@ -19,6 +19,31 @@ def get_numbers_from_user():
         # TODO: Try to convert to float and add to list
         # TODO: Handle invalid input gracefully
         pass
+def get_numbers_from_user():
+    """
+    Get numbers from user until they type 'done'.
+    Return a list of numbers.
+
+    Returns:
+        list: List of numbers entered by user
+    """
+    numbers = []
+
+    while True:
+        user_input = input("Enter a number (or type 'done' to finish): ").strip()
+
+        # Vérifier si l’utilisateur veut arrêter
+        if user_input.lower() == "done":
+            break
+
+        # Essayer de convertir en float
+        try:
+            number = float(user_input)
+            numbers.append(number)
+        except ValueError:
+            print("❌ Invalid input. Please enter a number or 'done'.")
+
+    return numbers
 
     return numbers
 
@@ -77,6 +102,57 @@ def display_analysis(analysis):
     # etc.
     pass
 
+def analyze_numbers(numbers):
+    """
+    Analyze the list and return a dictionary with:
+    - count: number of elements
+    - sum: sum of all numbers
+    - average: average value
+    - minimum: smallest number
+    - maximum: largest number
+    - even_count: count of even numbers
+    - odd_count: count of odd numbers
+
+    Args:
+        numbers (list): List of numbers to analyze
+
+    Returns:
+        dict: Dictionary with analysis results, or None if list is empty
+    """
+    if not numbers:
+        return None
+
+    analysis = {}
+    analysis["count"] = len(numbers)
+    analysis["sum"] = sum(numbers)
+    analysis["average"] = round(sum(numbers) / len(numbers), 2)
+    analysis["minimum"] = min(numbers)
+    analysis["maximum"] = max(numbers)
+    analysis["even_count"] = sum(1 for n in numbers if n % 2 == 0)
+    analysis["odd_count"] = sum(1 for n in numbers if n % 2 != 0)
+
+    return analysis
+
+
+def display_analysis(analysis):
+    """
+    Display the analysis in a formatted way.
+
+    Args:
+        analysis (dict): Dictionary containing analysis results
+    """
+    if not analysis:
+        return
+
+    print("\nAnalysis Results:")
+    print("-" * 20)
+    print(f"Count: {analysis['count']}")
+    print(f"Sum: {analysis['sum']}")
+    print(f"Average: {analysis['average']}")
+    print(f"Minimum: {analysis['minimum']}")
+    print(f"Maximum: {analysis['maximum']}")
+    print(f"Even numbers: {analysis['even_count']}")
+    print(f"Odd numbers: {analysis['odd_count']}")
 
 def main():
     """Main function to run the number analyzer."""
